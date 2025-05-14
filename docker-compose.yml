@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  image-server:
+    build: .
+    container_name: random_image_app_container
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./images:/app/images
+    # 如果你想在开发时代码更改能自动重载，
+    # 并且你的 app.py 和 requirements.txt 在容器启动后不会改变，
+    # 可以考虑把整个应用目录也挂载进来，但这通常用于开发。
+    # 对于这个应用，主要需要的是 images 目录的实时同步。
+    # - ./app.py:/app/app.py # (可选, Flask的debug模式会处理重载)
+    # - ./requirements.txt:/app/requirements.txt # (可选, 依赖通常在构建时安装) 
