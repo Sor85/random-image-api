@@ -30,8 +30,8 @@
 
 1.  克隆本仓库:
     ```bash
-    git clone <repository-url>
-    cd <repository-name>
+    git clone [<repository-url>](https://github.com/Sor85/Random-image.git)
+    cd Random-image
     ```
 2.  安装依赖:
     ```bash
