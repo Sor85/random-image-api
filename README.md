@@ -79,32 +79,7 @@ images/
 
 ## Docker (可选)
 
-如果您希望使用 Docker 运行此应用，可以创建一个类似如下的 `Dockerfile`:
-
-```dockerfile
-FROM python:3.9-slim
-
-WORKDIR /app
-
-COPY requirements.txt requirements.txt
-RUN pip install -r requirements.txt
-
-COPY . .
-
-# 创建 images 目录，如果应用启动时没有处理好权限问题，可以在这里创建
-RUN mkdir -p images
-
-EXPOSE 5000
-
-CMD ["python", "app.py"]
-```
-
-您还需要一个 `requirements.txt` 文件，内容为:
-```
-Flask
-```
-
-然后构建并运行 Docker 镜像:
+如果您希望使用 Docker 运行此应用，可以构建 Docker 镜像:
 ```bash
 docker build -t random-image-api .
 docker run -p 5000:5000 -v $(pwd)/images:/app/images random-image-api
