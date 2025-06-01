@@ -1,4 +1,4 @@
-# Random-image
+# random—image-api
 
 这是一个简单的 Flask 应用，用于提供一个 API，根据指定的分类随机返回图片。
 
@@ -21,7 +21,7 @@
 └── README.md
 ```
 
-## 先决条件
+## 前提条件
 
 -   Python 3.x
 -   Flask
@@ -30,7 +30,7 @@
 
 1.  克隆本仓库:
     ```bash
-    git clone [<repository-url>](https://github.com/Sor85/Random-image.git)
+    git clone https://github.com/Sor85/Random-image.git
     cd Random-image
     ```
 2.  安装依赖:
@@ -84,13 +84,4 @@ images/
 docker build -t random-image-api .
 docker run -p 5000:5000 -v $(pwd)/images:/app/images random-image-api
 ```
-请确保将 `$(pwd)/images` 替换为您本地 `images` 文件夹的实际绝对路径，以便将本地图片挂载到容器中。
 
-## 注意事项
-
--   `IMAGE_ROOT_DIR` 在 `app.py` 中定义为 'images'。所有图片分类文件夹都应在此目录下。
--   应用在调试模式下运行 (`debug=True`)。对于生产环境，请将其设置为 `False`。
-
-## 许可证
-
-本项目采用 MIT 许可证。 
