@@ -1,4 +1,4 @@
-# random—image-api
+# random-image-api
 
 这是一个简单的 Flask 应用，用于提供一个 API，根据指定的分类随机返回图片。
 
@@ -30,8 +30,8 @@
 
 1.  克隆本仓库:
     ```bash
-    git clone https://github.com/Sor85/Random-image.git
-    cd Random-image
+    git clone https://github.com/Sor85/random-image-api.git
+    cd random-image-api
     ```
 2.  安装依赖:
     ```bash
