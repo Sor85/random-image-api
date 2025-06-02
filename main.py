@@ -39,6 +39,7 @@ async def read_root():
 async def search_pixiv_illustrations(
     keyword: str,
     r18: Optional[int] = Query(0, ge=0, le=1), # 0 表示非R18, 1 表示R18
+    min_bookmarks: Optional[int] = Query(None, ge=0) # 新增：最小收藏数筛选
 ):
     if not keyword:
         raise HTTPException(status_code=400, detail="关键词不能为空")
@@ -50,7 +51,7 @@ async def search_pixiv_illustrations(
         search_query += " R-18"
 
     try:
-        # await authenticate_pixiv() # 如果希望每次请求都重新认证，请取消此行的注释
+        await authenticate_pixiv()
 
         all_illusts = []
         current_search_params = {
@@ -95,7 +96,18 @@ async def search_pixiv_illustrations(
              # 理论上如果 all_illusts 非空，这里也应该非空，但作为保险
             raise HTTPException(status_code=404, detail="处理后未找到有效插画。")
 
-        # 从去重后的列表中进行R18筛选
+        # 新增：根据最小收藏数筛选
+        if min_bookmarks is not None and min_bookmarks > 0: # 仅当 min_bookmarks > 0 时才筛选
+            illusts_after_bookmark_filter = []
+            for illust in unique_illusts_for_filtering:
+                if illust.total_bookmarks >= min_bookmarks:
+                    illusts_after_bookmark_filter.append(illust)
+            
+            if not illusts_after_bookmark_filter:
+                raise HTTPException(status_code=404, detail=f"未找到收藏数大于等于 {min_bookmarks} 的插画。")
+            unique_illusts_for_filtering = illusts_after_bookmark_filter # 更新列表以进行后续筛选
+
+        # 从去重和收藏数筛选后的列表中进行R18筛选
         filtered_illusts = []
         for illust in unique_illusts_for_filtering: 
             if r18 == 1: # 用户需要R18内容
